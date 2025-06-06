@@ -18,11 +18,11 @@ router.post('/register', async (req: express.Request, res: express.Response) => 
     
     // Check if user already exists
     const existingUser = await db
-      .selectFrom('users')
-      .where('email', '=', email)
-      .or('username', '=', username)
-      .selectAll()
-      .executeTakeFirst();
+  .selectFrom('users')
+  .where('email', '=', email)
+  .orWhere('username', '=', username)
+  .selectAll()
+  .executeTakeFirst();
     
     if (existingUser) {
       res.status(409).json({ error: 'User with this email or username already exists' });
